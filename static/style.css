@@ -1,0 +1,38 @@
+#rePosition2 {
+    top: 30px;
+    left: 10px;
+    position: absolute;
+}
+
+body {
+    background-color: #C2FFFF;
+}
+
+#blacklist {
+    background-color: #c2ffce;
+    overflow-y: scroll;
+    height: 390px;
+    border-style: double;
+    border-width: 6px;
+    border-spacing: 20px;
+    display: inline-block;
+}
+
+input#file {
+    border-style: solid;
+    display: inline-block;
+    width: 6%;
+    padding: 100px 0 0 0;
+    height: 100px;
+    overflow: hidden;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background: url('https://cdn1.iconfinder.com/data/icons/hawcons/32/698394-icon-130-cloud-upload-512.png') center center no-repeat #ffffff;
+    border-radius: 20px;
+    background-size: 60px 60px;
+}
+
+input#file:hover {
+    background-color: #FFEFD2;
+}
