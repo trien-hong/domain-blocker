@@ -43,14 +43,14 @@ chrome.storage.local.get('storageObjectName', function (data) {
     
                     });
 
-                    alert("Website has been added. Page will reload shorly.");
+                    alert("Website has been added.\n\nPage will reload shorly.");
 
                     location.reload();
                 } else {
-                    alert("Website seems to already be in your list. Please try again.")
+                    alert("Website seems to already be in your list.\n\nPlease try again.")
                 }
             } else {
-                alert("Item seems to be 'null'. Please try again.")
+                alert("Item seems to be 'invalid'.\n\nPlease try again.")
             }
         });
     } else {
@@ -74,14 +74,14 @@ chrome.storage.local.get('storageObjectName', function (data) {
     
                     });
 
-                    alert("Website has been added. Page will reload shorly.");
+                    alert("Website has been added.\n\nPage will reload shorly.");
 
                     location.reload();
                 } else {
-                    alert("Website seems to already be in your list. Please try again.")
+                    alert("Website seems to already be in your list.\n\nPlease try again.")
                 }
             } else {
-                alert("Item seems to be 'null'. Please try again.")
+                alert("Item seems to be invalid.\n\nPlease try again.")
             }
         });
 
@@ -95,7 +95,7 @@ window.onload=function() {
         
         });
 
-        alert("List has been cleared. Page will reload shortly.");
+        alert("List has been cleared.\n\nPage will reload shortly.");
 
         location.reload();
     });
@@ -144,7 +144,48 @@ window.onload=function() {
         });    
         reader.readAsBinaryString(file);
         }
-        alert("Text file has successfully imported. Page will reload shortly.");
+        alert("Text file has successfully imported.\n\nPage will reload shortly.");
         location.reload();
     });
 }
+
+chrome.contextMenus.removeAll(function() {
+    chrome.contextMenus.create({
+        title: "Click to add link to blacklist",
+        contexts:["selection"],
+        onclick: function(textData) {
+            chrome.storage.local.get('storageObjectName', function (data) {
+                list = data.storageObjectName;
+
+                if (list == null) {
+                    list = [];
+                }
+
+                var website = textData.selectionText;
+
+                if (website != null) {
+                    var prefix = "*://*."
+                    var suffix = "/*"
+                    var result = prefix.concat(website)
+                    var final_result = result.concat(suffix)
+
+                    if (list.includes(final_result) != true) {
+                        list.push(final_result)
+
+                        chrome.storage.local.set({'storageObjectName': list}, function () {
+    
+                        });
+
+                        alert("Website has been added.");
+
+                        location.reload();
+                    } else {
+                        alert("Website seems to already be in your list.\n\nPlease try again.")
+                    }
+                } else {
+                    alert("Item seems to be invalid.\n\nPlease try again.")
+                }
+            });
+        }
+    });
+});

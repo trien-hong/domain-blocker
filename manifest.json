@@ -2,7 +2,7 @@
   "name": "Domain Blocker",
   "version": "3.0",
   "description": "Block Certain Websites",
-  "permissions": [ "webRequest", "webRequestBlocking", "<all_urls>", "storage" ],
+  "permissions": [ "webRequest", "webRequestBlocking", "<all_urls>", "storage", "contextMenus" ],
   "options_page": "options.html",
   "web_accessible_resources": [
     "blockedPages/blockedPage1.html",
