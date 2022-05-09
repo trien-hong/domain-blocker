@@ -3,6 +3,8 @@ var blockedPages = ["blockedPage1.html", "blockedPage2.html", "blockedPage3.html
 
 chrome.storage.local.get('storageObjectName', function (data) {
     if (data.storageObjectName != null) {
+        list = data.storageObjectName;
+
         chrome.webRequest.onBeforeRequest.addListener(
             function(details) {
                 blockedPage = blockedPages[Math.floor(Math.random() * 10)];
@@ -10,50 +12,31 @@ chrome.storage.local.get('storageObjectName', function (data) {
                     redirectUrl : chrome.extension.getURL("blockedPages/"+ blockedPage),
                 }
             },
-            { urls: data.storageObjectName },
+            { urls: list },
             ["blocking"]
         )
+    }
+});
 
-        for(var i =  0; i < data.storageObjectName.length; i++) {
-            text = data.storageObjectName[i];
-            newText = text.substring(6);
-            newText = newText.slice(0, -2);
-            document.getElementById('blacklist').innerHTML += '<h3>' + newText + '</h3>' + '<hr />';
-        }
-
+window.onload=function() {
+    chrome.storage.local.get('storageObjectName', function (data) {
         list = data.storageObjectName;
 
-        document.getElementById('buttonAdd').addEventListener('click', function () {
-            if (list == null) {
-                list = [];
+        if (data.storageObjectName == null) {
+            document.getElementById("totalItems").innerHTML = "Total Items: " + "<u>" + "0" + "</u>" + "<hr>";
+
+            document.getElementById("empty").innerHTML = "Your list is currently empty. Add website to the list or import your own list.";
+        } else {
+            document.getElementById("totalItems").innerHTML = "Total Items: " + "<u>" + data.storageObjectName.length + "</u>" + "<hr>";
+
+            for(var i =  0; i < data.storageObjectName.length; i++) {
+                text = data.storageObjectName[i];
+                newText = text.substring(6);
+                newText = newText.slice(0, -2);
+                document.getElementById('blacklist').innerHTML += '<h3>' + newText + '</h3>' + '<hr />';
             }
+        }
 
-            var website = prompt("ENTER WEBSITE TO BLOCK");
-
-            if (website != null) {
-                var prefix = "*://*."
-                var suffix = "/*"
-                var result = prefix.concat(website)
-                var final_result = result.concat(suffix)
-
-                if (list.includes(final_result) != true) {
-                    list.push(final_result)
-
-                    chrome.storage.local.set({'storageObjectName': list}, function () {
-    
-                    });
-
-                    alert("Website has been added.\n\nPage will reload shorly.");
-
-                    location.reload();
-                } else {
-                    alert("Website seems to already be in your list.\n\nPlease try again.")
-                }
-            } else {
-                alert("Item seems to be 'invalid'.\n\nPlease try again.")
-            }
-        });
-    } else {
         document.getElementById('buttonAdd').addEventListener('click', function () {
             if (list == null) {
                 list = [];
@@ -84,12 +67,8 @@ chrome.storage.local.get('storageObjectName', function (data) {
                 alert("Item seems to be invalid.\n\nPlease try again.")
             }
         });
+    });
 
-        document.getElementById("empty").innerHTML = "Your list is currently empty. Add website to the list or import your own list.";
-    }
-});
-
-window.onload=function() {
     document.getElementById('buttonClear').addEventListener('click', function () {
         chrome.storage.local.clear(function() {
         

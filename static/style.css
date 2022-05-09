@@ -8,6 +8,14 @@ body {
     background-color: #C2FFFF;
 }
 
+#buttonDownload {
+    vertical-align: middle;
+}
+
+#buttonClear {
+    vertical-align: middle;
+}
+
 #blacklist {
     background-color: #c2ffce;
     overflow-y: scroll;
@@ -28,7 +36,7 @@ input#file {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    background: url('https://cdn1.iconfinder.com/data/icons/hawcons/32/698394-icon-130-cloud-upload-512.png') center center no-repeat #ffffff;
+    background: url('../images/upload_icon.png') center center no-repeat #ffffff;
     border-radius: 20px;
     background-size: 60px 60px;
 }
