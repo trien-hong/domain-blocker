@@ -1,5 +1,4 @@
 var list;
-var blockedPages = ["blockedPage1.html", "blockedPage2.html", "blockedPage3.html", "blockedPage4.html", "blockedPage5.html", "blockedPage6.html", "blockedPage7.html", "blockedPage8.html", "blockedPage9.html", "blockedPage10.html"];
 
 chrome.storage.local.get('storageObjectName', function (data) {
     if (data.storageObjectName != null) {
@@ -7,9 +6,10 @@ chrome.storage.local.get('storageObjectName', function (data) {
 
         chrome.webRequest.onBeforeRequest.addListener(
             function(details) {
-                blockedPage = blockedPages[Math.floor(Math.random() * 10)];
-                return { 
-                    redirectUrl : chrome.extension.getURL("blockedPages/"+ blockedPage),
+                var blockedPages = ["blockedPage1.html", "blockedPage2.html", "blockedPage3.html", "blockedPage4.html", "blockedPage5.html", "blockedPage6.html", "blockedPage7.html", "blockedPage8.html", "blockedPage9.html", "blockedPage10.html"];
+                blockedPage = blockedPages[Math.floor(Math.random() * blockedPages.length)];
+                return {
+                    redirectUrl : chrome.extension.getURL("blockedPages/" + blockedPage),
                 }
             },
             { urls: list },
@@ -29,102 +29,30 @@ window.onload=function() {
         } else {
             document.getElementById("totalItems").innerHTML = "Total Items: " + "<u>" + data.storageObjectName.length + "</u>" + "<hr>";
 
-            for(var i =  0; i < data.storageObjectName.length; i++) {
-                text = data.storageObjectName[i];
-                newText = text.substring(6);
-                newText = newText.slice(0, -2);
-                document.getElementById('blacklist').innerHTML += '<h3>' + newText + '</h3>' + '<hr />';
-            }
+            displayList(data.storageObjectName);
         }
 
         document.getElementById('buttonAdd').addEventListener('click', function () {
-            if (list == null) {
-                list = [];
-            }
-
-            var website = prompt("ENTER WEBSITE TO BLOCK");
-
-            if (website != null) {
-                var prefix = "*://*."
-                var suffix = "/*"
-                var result = prefix.concat(website)
-                var final_result = result.concat(suffix)
-
-                if (list.includes(final_result) != true) {
-                    list.push(final_result)
-
-                    chrome.storage.local.set({'storageObjectName': list}, function () {
-    
-                    });
-
-                    alert("Website has been added.\n\nPage will reload shorly.");
-
-                    location.reload();
-                } else {
-                    alert("Website seems to already be in your list.\n\nPlease try again.")
-                }
-            } else {
-                alert("Item seems to be invalid.\n\nPlease try again.")
-            }
+            addToList(list);
         });
     });
 
     document.getElementById('buttonClear').addEventListener('click', function () {
-        chrome.storage.local.clear(function() {
-        
-        });
-
-        alert("List has been cleared.\n\nPage will reload shortly.");
-
-        location.reload();
+        clearList();
     });
 
     document.getElementById('buttonDownload').addEventListener('click', function () {
-        var saveData = (function () {
-            var a = document.createElement('a');
-            document.body.appendChild(a);
-            a.style = 'display: none';
-
-            return function (fileName) {
-                blob = new Blob([list], {type: 'octet/stream'}),
-                url = window.URL.createObjectURL(blob);
-                a.href = url;
-                a.download = fileName;
-                a.click();
-                window.URL.revokeObjectURL(url);
-            };
-        }());
-
-
-        var today = new Date();
-        var mm = String(today.getMonth() + 1).padStart(2, '0');
-        var dd = String(today.getDate()).padStart(2, '0');
-        var yyyy = today.getFullYear();
-
-        today = mm + '-' + dd + '-' + yyyy;
-
-        var fileName = "blacklistExport" + "_" + today + ".txt";
-
-        saveData(fileName);
+        saveList();
     });
 
-    var input = document.getElementById("file");
-
-    input.addEventListener("change", function () {
+    document.getElementById("file").addEventListener("change", function () {
         if (this.files && this.files[0]) {
             var file = this.files[0];
             var reader = new FileReader();
-    
-            reader.addEventListener('load', function (e) {
-            list = e.target.result.split(",")
-            chrome.storage.local.set({'storageObjectName': list}, function () {
-    
-            });
-        });    
-        reader.readAsBinaryString(file);
+            importList(file, reader);
+        } else {
+            alert("There seems to be a problem with reading the file.");
         }
-        alert("Text file has successfully imported.\n\nPage will reload shortly.");
-        location.reload();
     });
 }
 
@@ -134,37 +62,132 @@ chrome.contextMenus.removeAll(function() {
         contexts:["selection"],
         onclick: function(textData) {
             chrome.storage.local.get('storageObjectName', function (data) {
-                list = data.storageObjectName;
-
-                if (list == null) {
-                    list = [];
-                }
-
-                var website = textData.selectionText;
-
-                if (website != null) {
-                    var prefix = "*://*."
-                    var suffix = "/*"
-                    var result = prefix.concat(website)
-                    var final_result = result.concat(suffix)
-
-                    if (list.includes(final_result) != true) {
-                        list.push(final_result)
-
-                        chrome.storage.local.set({'storageObjectName': list}, function () {
-    
-                        });
-
-                        alert("Website has been added.");
-
-                        location.reload();
-                    } else {
-                        alert("Website seems to already be in your list.\n\nPlease try again.")
-                    }
-                } else {
-                    alert("Item seems to be invalid.\n\nPlease try again.")
-                }
+                addToListByContextMenu(data.storageObjectName, textData);
             });
         }
     });
 });
+
+function displayList(list) {
+    for(var i =  list.length - 1; i > -1; i--) {
+        text = list[i];
+        newText = text.substring(6);
+        newText = newText.slice(0, -2);
+        document.getElementById('blacklist').innerHTML += '<h3>' + newText + '</h3>' + '<hr />';
+    }
+}
+
+function addToList(list) {
+    if (list == null) {
+        list = [];
+    }
+
+    var website = prompt("ENTER WEBSITE TO BLOCK");
+
+    if (website != null) {
+        var prefix = "*://*.";
+        var suffix = "/*";
+        var result = prefix.concat(website);
+        var final_result = result.concat(suffix);
+
+        if (list.includes(final_result) != true) {
+            list.push(final_result)
+
+            chrome.storage.local.set({'storageObjectName': list}, function () {
+    
+            });
+
+            alert("Website has been added.\n\nPage will reload shorly.");
+
+            location.reload();
+        } else {
+            alert("Website seems to already be in your list.\n\nPlease try again.");
+        }
+    } else {
+        alert("Item seems to be invalid.\n\nPlease try again.");
+    }
+}
+
+function addToListByContextMenu(list, input) {
+    if (list == null) {
+        list = [];
+    }
+
+    var website = input.selectionText;
+
+    if (website != null) {
+        var prefix = "*://*."
+        var suffix = "/*"
+        var result = prefix.concat(website)
+        var final_result = result.concat(suffix)
+
+        if (list.includes(final_result) != true) {
+            list.push(final_result)
+
+            chrome.storage.local.set({'storageObjectName': list}, function () {
+    
+            });
+
+            alert("Website has been added.");
+
+            location.reload();
+        } else {
+            alert("Website seems to already be in your list.\n\nPlease try again.")
+        }
+    } else {
+        alert("Item seems to be invalid.\n\nPlease try again.")
+    }
+}
+
+function clearList() {
+    chrome.storage.local.clear(function() {
+        
+    });
+
+    alert("List has been cleared.\n\nPage will reload shortly.");
+
+    location.reload();
+}
+
+function saveList() {
+    var saveData = (function () {
+        var a = document.createElement('a');
+        document.body.appendChild(a);
+        a.style = 'display: none';
+
+        return function (fileName) {
+            blob = new Blob([list], {type: 'octet/stream'}),
+            url = window.URL.createObjectURL(blob);
+            a.href = url;
+            a.download = fileName;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        };
+    }());
+
+    var today = new Date();
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var dd = String(today.getDate()).padStart(2, '0');
+    var yyyy = today.getFullYear();
+
+    today = mm + '-' + dd + '-' + yyyy;
+
+    var fileName = "blacklistExport" + "_" + today + ".txt";
+
+    saveData(fileName);
+}
+
+function importList(file, reader) {
+    reader.addEventListener('load', function (e) {
+        list = e.target.result.split(",")
+        chrome.storage.local.set({'storageObjectName': list}, function () {
+    
+        });
+    });
+
+    reader.readAsBinaryString(file);
+
+    alert("Text file has successfully imported.\n\nPage will reload shortly.");
+
+    location.reload();
+}
