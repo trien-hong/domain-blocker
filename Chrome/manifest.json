@@ -1,0 +1,32 @@
+{
+  "name": "Domain Blocker",
+  "version": "3.0",
+  "description": "Block Certain Websites",
+  "permissions": [ "webRequest", "webRequestBlocking", "<all_urls>", "storage", "contextMenus" ],
+  "options_page": "options.html",
+  "web_accessible_resources": [
+    "blockedPages/blockedPage1.html",
+    "blockedPages/blockedPage2.html",
+    "blockedPages/blockedPage3.html",
+    "blockedPages/blockedPage4.html",
+    "blockedPages/blockedPage5.html",
+    "blockedPages/blockedPage6.html",
+    "blockedPages/blockedPage7.html",
+    "blockedPages/blockedPage8.html",
+    "blockedPages/blockedPage9.html",
+    "blockedPages/blockedPage10.html"
+  ],
+  "background": {
+    "scripts": [ "background.js" ]
+  },
+
+  "icons": {
+    "16": "icons/logo_16x16.png",
+    "48": "icons/logo_48x48.png",
+    "128": "icons/logo_128x128.png"
+  },
+
+  "manifest_version": 2
+
+
+}

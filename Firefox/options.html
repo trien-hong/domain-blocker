@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/style.css" />
+        <script type="text/javascript" src="background.js"></script>
+        <title>Domain Blocker</title>
+    </head>
+<body>
+    <center>
+        <h1><u>All Your Blocked Websites</u></h1>
+        <h3>FORMAT: subdomain + domain + top level domain | EX: "ads.twitter.com" OR "twitter.com"</h3>
+        <h3>Blocking "ads.twitter.com" WILL NOT block "twitter.com" | Blocking "twitter.com" WILL block "ads.twitter.com"</h3>
+        <hr />
+        <br />
+        <button id="buttonAdd">CLICK TO ADD NEW WEBSITE</button>
+        <br />
+        <br />
+        <div id="blacklist"><h2 id="totalItems"></h2></div>
+        <br />
+        <br />
+        <h3><button id="buttonDownload">DOWNLOAD LIST</button> | <button id="buttonClear">CLEAR LIST</button></h3>
+        <h2 id="empty"></h2>
+        <h2><u>Import List</u></h2>
+        <input id="file" type="file" />
+        <h2>NOTE: THIS WILL OVERWRITE</h2>
+    </center>
+</body>
+</html>

@@ -1,0 +1,17 @@
+body {
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+img {
+    vertical-align: middle;
+}
+
+#message {
+    border-style: double;
+    border-radius: 15px;
+    border-width: 9px;
+    border-spacing: 10px;
+    display: inline-block;
+    background-color: rgba(188,230,255,0.7);
+}
