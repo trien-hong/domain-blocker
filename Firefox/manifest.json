@@ -5,7 +5,7 @@
     }
   },
   "name": "Domain Blocker",
-  "version": "1.1",
+  "version": "1.2",
   "description": "Block websites by adding their domain to a list.",
   "permissions": [ "webRequest", "webRequestBlocking", "<all_urls>", "storage", "contextMenus" ],
   "options_ui": {

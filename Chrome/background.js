@@ -8,7 +8,7 @@ chrome.storage.local.get('storageObjectName', function (data) {
             function(details) {
                 blockedPage = (Math.floor(Math.random() * 10) + 1);
                 return {
-                    redirectUrl : chrome.extension.getURL("blockedPages/blockedPage" + blockedPage + ".html"),
+                    redirectUrl : chrome.runtime.getURL("blockedPages/blockedPage" + blockedPage + ".html"),
                 }
             },
             { urls: list },

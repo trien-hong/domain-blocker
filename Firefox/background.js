@@ -4,11 +4,11 @@ browser.storage.local.get('storageObjectName', function (data) {
     if (data.storageObjectName != null) {
         list = data.storageObjectName;
 
-        chrome.webRequest.onBeforeRequest.addListener(
+        browser.webRequest.onBeforeRequest.addListener(
             function(details) {
                 blockedPage = (Math.floor(Math.random() * 10) + 1);
                 return {
-                    redirectUrl : chrome.extension.getURL("blockedPages/blockedPage" + blockedPage + ".html"),
+                    redirectUrl : browser.runtime.getURL("blockedPages/blockedPage" + blockedPage + ".html"),
                 }
             },
             { urls: list },
