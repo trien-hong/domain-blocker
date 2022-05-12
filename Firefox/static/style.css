@@ -30,7 +30,7 @@ input#file {
     border-style: solid;
     display: inline-block;
     width: 6%;
-    padding: 100px 0 0 0;
+    padding: 100px 0 0 100px;
     height: 100px;
     overflow: hidden;
     -webkit-box-sizing: border-box;
@@ -38,9 +38,44 @@ input#file {
     box-sizing: border-box;
     background: url('../images/upload_icon.png') center center no-repeat #ffffff;
     border-radius: 20px;
-    background-size: 60px 60px;
+    background-size: 70px 70px;
 }
 
 input#file:hover {
     background-color: #FFEFD2;
+}
+
+.navbar a {
+    color: black;
+    padding: 10px 16px;
+    text-decoration: none;
+    font-size: 21px;
+    border-style: solid;
+    background-color: #ECECEC;
+}
+
+.navbar a:hover {
+    background-color: #E1E1E1;
+}
+
+.container {
+    margin-left: 13%;
+    margin-right: 13%;
+    width: 74%;
+}
+
+.row1 {
+    display: flex;
+}
+
+.column1 {
+    flex: 50%;
+    margin-right: 5px;
+    margin-left: 5px;
+    text-align: center;
+    border-style: double;
+}
+
+.text {
+    font-size: 17px;
 }

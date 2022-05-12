@@ -7,23 +7,31 @@
     </head>
 <body>
     <center>
-        <h1><u>All Your Blocked Websites</u></h1>
-        <h3>FORMAT: subdomain + domain + top level domain | EX: "ads.twitter.com" OR "twitter.com"</h3>
-        <h3>Blocking "ads.twitter.com" WILL NOT block "twitter.com" | Blocking "twitter.com" WILL block "ads.twitter.com"</h3>
-        <hr />
-        <h3>Enter Each site on a new line.</h3>
-        <textarea id="textAreaUserInput" name="textAreaUserInput" rows="5" cols="40" placeholder="EXAMPLE:&#10ads.twitter.com&#10geoads.com&#10ads.spotify.com&#10ebayads.com"></textarea>
         <br>
-        <button id="buttonAdd">CLICK TO ADD NEW WEBSITE(S)</button>
-        <br />
-        <br />
-        <div id="blacklist"><h2 id="totalItems"></h2></div>
-        <br />
-        <br />
-        <h3><button id="buttonDownload">DOWNLOAD LIST</button> | <button id="buttonClear">CLEAR LIST</button></h3>
-        <h2 id="empty"></h2>
-        <h2><u>Import List</u></h2>
-        <input id="file" type="file" />
+        <div class="navbar">
+            <a href="options.html"><b><u>HOME</u></b></a>
+            <a href="about.html"><b>ABOUT</b></a>
+        </div>
+        <div class="container">
+            <br />
+            <h1><u>All Your Blocked Websites</u></h1>
+            <h3>FORMAT: subdomain + domain + top level domain | EX: "ads.twitter.com" OR "twitter.com"</h3>
+            <h3>Blocking "ads.twitter.com" WILL NOT block "twitter.com" | Blocking "twitter.com" WILL block "ads.twitter.com"</h3>
+            <hr />
+            <h3>Enter each site on a new line.</h3>
+            <textarea id="textAreaUserInput" name="textAreaUserInput" rows="5" cols="40" placeholder="EXAMPLE:&#10ads.twitter.com&#10geoads.com&#10ads.spotify.com&#10ebayads.com"></textarea>
+            <br>
+            <button id="buttonAdd">CLICK TO ADD NEW WEBSITE(S)</button>
+            <br />
+            <br />
+            <div id="blacklist"><h2 id="totalItems"></h2></div>
+            <br />
+            <br />
+            <h3><button id="buttonDownload">DOWNLOAD LIST</button> | <button id="buttonClear">CLEAR LIST</button></h3>
+            <h2 id="empty"></h2>
+            <h2><u>Import List</u></h2>
+            <input id="file" type="file" />
+        </div>
     </center>
 </body>
 </html>
