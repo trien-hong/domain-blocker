@@ -11,8 +11,10 @@
         <h3>FORMAT: subdomain + domain + top level domain | EX: "ads.twitter.com" OR "twitter.com"</h3>
         <h3>Blocking "ads.twitter.com" WILL NOT block "twitter.com" | Blocking "twitter.com" WILL block "ads.twitter.com"</h3>
         <hr />
-        <br />
-        <button id="buttonAdd">CLICK TO ADD NEW WEBSITE</button>
+        <h3>Enter Each site on a new line.</h3>
+        <textarea id="textAreaUserInput" name="textAreaUserInput" rows="5" cols="40" placeholder="EXAMPLE:&#10ads.twitter.com&#10geoads.com&#10ads.spotify.com&#10ebayads.com"></textarea>
+        <br>
+        <button id="buttonAdd">CLICK TO ADD NEW WEBSITE(S)</button>
         <br />
         <br />
         <div id="blacklist"><h2 id="totalItems"></h2></div>
@@ -22,7 +24,6 @@
         <h2 id="empty"></h2>
         <h2><u>Import List</u></h2>
         <input id="file" type="file" />
-        <h2>NOTE: THIS WILL OVERWRITE</h2>
     </center>
 </body>
 </html>
