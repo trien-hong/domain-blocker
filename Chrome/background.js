@@ -3,12 +3,12 @@ var list;
 chrome.storage.local.get('storageObjectName', function (data) {
     if (data.storageObjectName != null) {
         list = data.storageObjectName;
-
+        
         chrome.webRequest.onBeforeRequest.addListener(
             function(details) {
-                blockedPage = (Math.floor(Math.random() * 10) + 1);
+                url = details.url.split("/");
                 return {
-                    redirectUrl : chrome.runtime.getURL("blockedPages/blockedPage" + blockedPage + ".html"),
+                    redirectUrl : chrome.runtime.getURL("blockedPage.html"+ "?site=" + url[2]),
                 }
             },
             { urls: list },
@@ -92,7 +92,7 @@ function addToList(list, userInput) {
             var result = prefix.concat(userInput[i]);
             var final_result = result.concat(suffix);
 
-            if (list.includes(final_result) != true) {
+            if ((list.includes(final_result) != true)  && (userInput[i].replace(/\s/g, '').length)) {
                 list.push(final_result);
 
                 chrome.storage.local.set({'storageObjectName': list}, function () {
@@ -100,7 +100,7 @@ function addToList(list, userInput) {
                 });
             }
         }
-        alert("Website has been added. Note duplicate items will not be added.\n\nPage will reload shortly.");
+        alert("Website has been added. Page will reload shortly.\n\nNote duplicate items and strings that only contain whitespaces will not be added.");
 
         location.reload();
     }

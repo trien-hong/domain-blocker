@@ -5,25 +5,16 @@
     }
   },
   "name": "Domain Blocker",
-  "version": "1.3",
+  "version": "1.4",
   "description": "Block websites by adding their domain to a list.",
-  "permissions": [ "webRequest", "webRequestBlocking", "<all_urls>", "storage", "contextMenus" ],
+  "permissions": [ "webRequest", "webRequestBlocking", "<all_urls>", "storage", "contextMenus", "tabs" ],
   "options_ui": {
     "page": "options.html"
   },
   "web_accessible_resources": [
-    "blockedPages/blockedPage1.html",
-    "blockedPages/blockedPage2.html",
-    "blockedPages/blockedPage3.html",
-    "blockedPages/blockedPage4.html",
-    "blockedPages/blockedPage5.html",
-    "blockedPages/blockedPage6.html",
-    "blockedPages/blockedPage7.html",
-    "blockedPages/blockedPage8.html",
-    "blockedPages/blockedPage9.html",
-    "blockedPages/blockedPage10.html",
+    "blockedPage.html",
     "about.html",
-    "maintainers.html"
+    "knownIssues.html"
   ],
   "background": {
     "scripts": [ "background.js" ]
