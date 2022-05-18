@@ -1,0 +1,101 @@
+body {
+    height: 530px;
+    width: 385px;
+    background-color: #79B5EE;
+    border-style: solid;
+}
+
+img {
+    vertical-align: middle;
+}
+
+#domain {
+    overflow-x: auto;
+}
+
+#buttonAdd {
+    background-color: #C0E1FF;
+    border: none;
+    color: black;
+    padding: 8px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-style: solid;
+    border-color: #7A7A7A;
+    font-weight: bold;
+}
+
+#buttonAdd:hover {
+    border-color: black;
+}
+
+#rePosition {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#buttonEFR {
+    background-color: #C0E1FF;
+    border: none;
+    color: black;
+    text-align: center;
+    display: inline-block;
+    padding: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    border-style: solid;
+    border-color: #7A7A7A;
+    font-weight: bold;
+}
+
+#buttonEFR:hover {
+    border-color: black;
+}
+
+#buttonH {
+    background-color: #C0E1FF;
+    cursor: pointer;
+    margin-right: 5px;
+    padding: 7px;
+    font-size: 14px;
+    font-weight: bold;
+    border-style: solid;
+    border-color: #7A7A7A;
+}
+
+#buttonA {
+    background-color: #C0E1FF;
+    cursor: pointer;
+    margin-right: 5px;
+    padding: 7px;
+    font-size: 14px;
+    font-weight: bold;
+    border-style: solid;
+    border-color: #7A7A7A;
+}
+
+#buttonI {
+    background-color: #C0E1FF;
+    cursor: pointer;
+    margin-right: 5px;
+    padding: 7px;
+    font-size: 14px;
+    font-weight: bold;
+    border-style: solid;
+    border-color: #7A7A7A;
+}
+
+#buttonH:hover {
+    border-color: black;
+}
+
+#buttonA:hover {
+    border-color: black;
+}
+
+#buttonI:hover {
+    border-color: black;
+}

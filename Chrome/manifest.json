@@ -1,8 +1,16 @@
 {
   "name": "Domain Blocker",
-  "version": "1.4",
+  "version": "1.5",
   "description": "Block Certain Websites",
   "permissions": [ "webRequest", "webRequestBlocking", "<all_urls>", "storage", "contextMenus", "tabs" ],
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/logo_16x16.png",
+      "48": "icons/logo_48x48.png",
+      "128": "icons/logo_128x128.png"
+    }
+  },
   "options_page": "options.html",
   "web_accessible_resources": [
     "blockedPage.html",
