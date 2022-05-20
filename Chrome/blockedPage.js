@@ -6,7 +6,7 @@ chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
 
     if (website[website.length - 1].includes("//") == true) {
         document.body.style.backgroundImage = 'url(images/blockedPage' + img + '.jpg)';
-        document.getElementById("message").innerHTML = "<h1><b><u><img src=\"../images/error_icon1.png\">Sorry, this ad has been blocked.<img src=\"../images/error_icon2.png\"></u></b></h1>";
+        document.getElementById("message").innerHTML = "<h1><b><u><img src=\"../images/error_icon1.png\">Sorry, this ad/page has been blocked.<img src=\"../images/error_icon2.png\"></u></b></h1>";
     } else {
         document.body.style.backgroundImage = 'url(images/blockedPage' + img + '.jpg)';
         document.getElementById("message").innerHTML = "<h1><b><u><img src=\"../images/error_icon1.png\">Sorry, \"" + website[website.length - 1] + "\" has been blocked.<img src=\"../images/error_icon2.png\"></u></b></h1>";
