@@ -1,8 +1,10 @@
 body {
-    height: 530px;
-    width: 385px;
+    height: 100%;
+    width: 370px;
     background-color: #79B5EE;
     border-style: solid;
+    font-family: Arial;
+    font-size: 15px
 }
 
 img {
@@ -24,6 +26,7 @@ img {
     cursor: pointer;
     border-style: solid;
     border-color: #7A7A7A;
+    font-family: Arial;
     font-weight: bold;
 }
 
@@ -31,7 +34,7 @@ img {
     border-color: black;
 }
 
-#rePosition {
+#isBlocked {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,6 +51,7 @@ img {
     cursor: pointer;
     border-style: solid;
     border-color: #7A7A7A;
+    font-family: Arial;
     font-weight: bold;
 }
 
@@ -60,6 +64,7 @@ img {
     cursor: pointer;
     margin-right: 5px;
     padding: 7px;
+    font-family: Arial;
     font-size: 14px;
     font-weight: bold;
     border-style: solid;
@@ -71,6 +76,7 @@ img {
     cursor: pointer;
     margin-right: 5px;
     padding: 7px;
+    font-family: Arial;
     font-size: 14px;
     font-weight: bold;
     border-style: solid;
@@ -82,6 +88,7 @@ img {
     cursor: pointer;
     margin-right: 5px;
     padding: 7px;
+    font-family: Arial;
     font-size: 14px;
     font-weight: bold;
     border-style: solid;
@@ -98,4 +105,42 @@ img {
 
 #buttonI:hover {
     border-color: black;
+}
+
+.buttonPause1 {
+    background-color: #C0E1FF;
+    border: none;
+    color: black;
+    padding: 8px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-style: solid;
+    border-color: #7A7A7A;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.buttonPause2 {
+    background-color: #C0E1FF;
+    border: none;
+    color: black;
+    padding: 8px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-style: solid;
+    border-color: #7A7A7A;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.buttonPause1:hover {
+    border-color: red;
+}
+
+.buttonPause2:hover {
+    border-color: green;
 }

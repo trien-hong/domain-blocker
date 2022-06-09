@@ -19,7 +19,37 @@ window.onload = () => {
         browser.tabs.create({ url: "knownIssues.html" });
     });
 
+    browser.storage.local.get('isPause', function (data) {
+        if (data.isPause == false || data.isPause == null) {
+            document.getElementById('msg').innerHTML = "<h3>Extension is not paused.</h3>"
+            document.getElementById('buttonPause').innerHTML = "<button class=\"buttonPause1\">PAUSE EXTENSION</button>"
+            document.getElementById('buttonPause').addEventListener('click', function() {
+                pauseOrUnpause(false);
+            });
+        } else {
+            document.getElementById('msg').innerHTML = "<h3>Extension is paused.</h3>"
+            document.getElementById('buttonPause').innerHTML = "<button class=\"buttonPause2\">UNPAUSE EXTENSION</button>"
+            document.getElementById('buttonPause').addEventListener('click', function() {
+                pauseOrUnpause(true);
+            });
+        }
+    });
+
     displayDomain();
+}
+
+function pauseOrUnpause(status) {
+    if (status == false) {
+        //extension is not on puased so send msg to pause extension
+        browser.runtime.sendMessage({type: "pauseOrUnpauseExtension", pauseOrUnpauseExtension:true});
+        
+        location.reload();
+    } else {
+        //extension is paused so send msg to unpause extension
+        browser.runtime.sendMessage({type: "pauseOrUnpauseExtension", pauseOrUnpauseExtension:false});
+
+        location.reload();
+    }
 }
 
 function addToList() {

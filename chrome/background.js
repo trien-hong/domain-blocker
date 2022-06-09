@@ -1,16 +1,38 @@
-chrome.storage.local.get('blockedList', function (data) {
-    if (data.blockedList != null) {
-        chrome.webRequest.onBeforeRequest.addListener(
-            function(details) {
-                url = details.url.split("/");
-                return {
-                    redirectUrl : chrome.runtime.getURL("blockedPage.html"+ "?site=" + url[2]),
-                }
-            },
-            { urls: data.blockedList },
-            ["blocking"]
-        )
+chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
+    if(request.type == "pauseOrUnpauseExtension") {
+        if(request.pauseOrUnpauseExtension == true) {
+            //if the extension is not paused it will be paused here
+            chrome.storage.local.set({'isPause': true}, function () {
+                
+            });
+
+            location.reload();
+        } else {
+            //if the extension is paused it will be unpaused here
+            chrome.storage.local.set({'isPause': false}, function () {
+                
+            });
+
+            location.reload();
+        }
     }
+});
+
+chrome.storage.local.get('blockedList', function (data1) {
+    chrome.storage.local.get('isPause', function (data2) {
+        if (data1.blockedList != null && data2.isPause == false || data2.isPause == null) {
+            chrome.webRequest.onBeforeRequest.addListener(
+                function(details) {
+                    url = details.url.split("/");
+                    return {
+                        redirectUrl : chrome.runtime.getURL("blockedPage.html"+ "?site=" + url[2]),
+                    }
+                },
+                { urls: data1.blockedList },
+                ["blocking"]
+            )
+        }
+    });
 });
 
 window.onload = () => {
@@ -20,7 +42,7 @@ window.onload = () => {
         if (list == null) {
             document.getElementById("totalItems").innerHTML = "Total Items: " + "<u>" + "0" + "</u>" + "<hr>";
 
-            document.getElementById("empty").innerHTML = "Your list is currently empty. Add website to the list or import your own list.";
+            document.getElementById("empty").innerHTML = "Your list is currently empty.<br><br> Add website to the list manually or import your own list." + "<hr>";
         } else {
             document.getElementById("totalItems").innerHTML = "Total Items: " + "<u>" + list.length + "</u>" + "<hr>";
 
@@ -137,6 +159,8 @@ function addToList(userInput) {
             });
 
             alert("Website has been added. Page will reload shortly.\n\nNote duplicate items and strings that only contain whitespaces will not be added.");
+
+            chrome.runtime.sendMessage({type: "refresh"});
     
             location.reload();
         }
@@ -199,6 +223,10 @@ function importList(file, reader) {
         reader.addEventListener('load', function (e) {
             var list = e.target.result.split(",");
 
+            chrome.storage.local.clear(function() {
+
+            });
+
             chrome.storage.local.set({'blockedList': list}, function () {
                 
             });
@@ -223,8 +251,6 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
         var userInput = request.addToList.split(/\r?\n/);
         
         addToList(userInput);
-
-        chrome.runtime.sendMessage({type: "refresh"});
     }
 });
 

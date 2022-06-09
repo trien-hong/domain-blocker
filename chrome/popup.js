@@ -19,7 +19,37 @@ window.onload = () => {
         chrome.tabs.create({ url: "knownIssues.html" });
     });
 
+    chrome.storage.local.get('isPause', function (data) {
+        if (data.isPause == false || data.isPause == null) {
+            document.getElementById('msg').innerHTML = "<h2>Extension is not paused.</h2>"
+            document.getElementById('buttonPause').innerHTML = "<button id=\"buttonPause1\">PAUSE EXTENSION</button>"
+            document.getElementById('buttonPause').addEventListener('click', function() {
+                pauseOrUnpause(false);
+            });
+        } else {
+            document.getElementById('msg').innerHTML = "<h2>Extension is paused.</h2>"
+            document.getElementById('buttonPause').innerHTML = "<button id=\"buttonPause2\">UNPAUSE EXTENSION</button>"
+            document.getElementById('buttonPause').addEventListener('click', function() {
+                pauseOrUnpause(true);
+            });
+        }
+    });
+
     displayDomain();
+}
+
+function pauseOrUnpause(status) {
+    if (status == false) {
+        //extension is not on puased so send msg to pause extension
+        chrome.runtime.sendMessage({type: "pauseOrUnpauseExtension", pauseOrUnpauseExtension:true});
+        
+        location.reload();
+    } else {
+        //extension is paused so send msg to unpause extension
+        chrome.runtime.sendMessage({type: "pauseOrUnpauseExtension", pauseOrUnpauseExtension:false});
+
+        location.reload();
+    }
 }
 
 function addToList() {

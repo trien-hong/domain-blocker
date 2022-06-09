@@ -1,5 +1,5 @@
 body {
-    height: 500px;
+    height: 100%;
     width: 375px;
     background-color: #79B5EE;
     border-style: solid;
@@ -31,7 +31,7 @@ img {
     border-color: black;
 }
 
-#rePosition {
+#isBlocked {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -98,4 +98,40 @@ img {
 
 #buttonI:hover {
     border-color: black;
+}
+
+#buttonPause1 {
+    background-color: #C0E1FF;
+    border: none;
+    color: black;
+    padding: 8px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-style: solid;
+    border-color: #7A7A7A;
+    font-weight: bold;
+}
+
+#buttonPause2 {
+    background-color: #C0E1FF;
+    border: none;
+    color: black;
+    padding: 8px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-style: solid;
+    border-color: #7A7A7A;
+    font-weight: bold;
+}
+
+#buttonPause1:hover {
+    border-color: red;
+}
+
+#buttonPause2:hover {
+    border-color: green;
 }
