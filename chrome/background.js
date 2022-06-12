@@ -1,40 +1,3 @@
-chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
-    if(request.type == "pauseOrUnpauseExtension") {
-        if(request.pauseOrUnpauseExtension == true) {
-            //if the extension is not paused it will be paused here
-            chrome.storage.local.set({'isPause': true}, function () {
-                
-            });
-
-            location.reload();
-        } else {
-            //if the extension is paused it will be unpaused here
-            chrome.storage.local.set({'isPause': false}, function () {
-                
-            });
-
-            location.reload();
-        }
-    }
-});
-
-chrome.storage.local.get('blockedList', function (data1) {
-    chrome.storage.local.get('isPause', function (data2) {
-        if (data1.blockedList != null && data2.isPause == false || data2.isPause == null) {
-            chrome.webRequest.onBeforeRequest.addListener(
-                function(details) {
-                    url = details.url.split("/");
-                    return {
-                        redirectUrl : chrome.runtime.getURL("blockedPage.html"+ "?site=" + url[2]),
-                    }
-                },
-                { urls: data1.blockedList },
-                ["blocking"]
-            )
-        }
-    });
-});
-
 window.onload = () => {
     chrome.storage.local.get('blockedList', function (data) {
         var list = data.blockedList;
@@ -76,6 +39,43 @@ window.onload = () => {
         }
     });
 }
+
+chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
+    if(request.type == "pauseOrUnpauseExtension") {
+        if(request.pauseOrUnpauseExtension == true) {
+            //if the extension is not paused it will be paused here
+            chrome.storage.local.set({'isPause': true}, function () {
+                
+            });
+
+            location.reload();
+        } else {
+            //if the extension is paused it will be unpaused here
+            chrome.storage.local.set({'isPause': false}, function () {
+                
+            });
+
+            location.reload();
+        }
+    }
+});
+
+chrome.storage.local.get('blockedList', function (data1) {
+    chrome.storage.local.get('isPause', function (data2) {
+        if (data1.blockedList != null && data2.isPause == false || data2.isPause == null) {
+            chrome.webRequest.onBeforeRequest.addListener(
+                function(details) {
+                    url = details.url.split("/");
+                    return {
+                        redirectUrl : chrome.runtime.getURL("blockedPage.html"+ "?site=" + url[2]),
+                    }
+                },
+                { urls: data1.blockedList },
+                ["blocking"]
+            )
+        }
+    });
+});
 
 chrome.contextMenus.removeAll(function() {
     chrome.contextMenus.create({
