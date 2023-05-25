@@ -15,10 +15,6 @@ window.onload = () => {
         chrome.tabs.create({ url: "about.html" });
     });
 
-    document.getElementById('buttonI').addEventListener('click', function () {
-        chrome.tabs.create({ url: "knownIssues.html" });
-    });
-
     chrome.storage.local.get('isPause', function (data) {
         if (data.isPause == false || data.isPause == null) {
             document.getElementById('msg').innerHTML = "<h2>Extension is not paused.</h2>"
@@ -59,6 +55,8 @@ function addToList() {
         var website = newUrl.split("/");
 
         chrome.runtime.sendMessage({type: "addToList", addToList:website[2]});
+
+        chrome.runtime.sendMessage({type: "refresh"});
 
         chrome.tabs.update({ url: "blockedPage.html"+ "?site=" + website[2] });
 

@@ -15,10 +15,6 @@ window.onload = () => {
         browser.tabs.create({ url: "about.html" });
     });
 
-    document.getElementById('buttonI').addEventListener('click', function () {
-        browser.tabs.create({ url: "knownIssues.html" });
-    });
-
     browser.storage.local.get('isPause', function (data) {
         if (data.isPause == false || data.isPause == null) {
             document.getElementById('msg').innerHTML = "<h3>Extension is not paused.</h3>"

@@ -1,5 +1,6 @@
 body {
     background-color: #C2FFFF;
+    font-family: Arial;
 }
 
 #buttonDownload {
@@ -18,6 +19,8 @@ body {
     border-width: 6px;
     border-spacing: 20px;
     display: inline-block;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 input#file {

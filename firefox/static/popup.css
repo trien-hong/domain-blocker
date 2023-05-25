@@ -1,6 +1,6 @@
 body {
     height: 100%;
-    width: 370px;
+    width: 450px;
     background-color: #79B5EE;
     border-style: solid;
     font-family: Arial;
@@ -83,18 +83,6 @@ img {
     border-color: #7A7A7A;
 }
 
-#buttonI {
-    background-color: #C0E1FF;
-    cursor: pointer;
-    margin-right: 5px;
-    padding: 7px;
-    font-family: Arial;
-    font-size: 14px;
-    font-weight: bold;
-    border-style: solid;
-    border-color: #7A7A7A;
-}
-
 #buttonH:hover {
     border-color: black;
 }
@@ -143,4 +131,8 @@ img {
 
 .buttonPause2:hover {
     border-color: green;
+}
+
+#extensionPages {
+    padding-bottom: 7px;
 }
